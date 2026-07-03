@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String // Hashed password
+}
+
+model Package {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  priceKm     Float
+  startingPrice Float
+  seats       Int
+  fuel        String
+  image       String   // URL to the image
+  features    String   // Stored as JSON string or comma-separated
+  bestFor     String
+  badge       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  name      String
+  location  String
+  rating    Int
+  text      String
+  trip      String
+  image     String?  // Optional avatar URL
+  date      String   // Using string to match current format e.g. "2 days ago" or we can use DateTime
+  isApproved Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        String   @id @default(uuid())
+  url       String
+  caption   String?
+  createdAt DateTime @default(now())
+}

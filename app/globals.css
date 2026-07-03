@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07111f;
+  --foreground: #f4f7fb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta);
+  --font-playfair: var(--font-playfair);
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(83, 112, 140, 0.18), transparent 30%),
+    linear-gradient(180deg, #07111f 0%, #09131f 42%, #050b13 100%);
+  color: var(--foreground);
+}
+
+@layer base {
+  body {
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #c89a3a;
+    color: #07111f;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #09131f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c89a3a;
+    border-radius: 999px;
+  }
+}
+
+@layer utilities {
+  .text-gold {
+    color: #c89a3a;
+  }
+
+  .bg-gold {
+    background-color: #c89a3a;
+  }
+
+  .border-gold {
+    border-color: #c89a3a;
+  }
+
+  .glass {
+    background: rgba(11, 20, 32, 0.72);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 12px 40px rgba(2, 6, 23, 0.18);
+  }
+
+  .glass-gold {
+    background: rgba(200, 154, 58, 0.08);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(200, 154, 58, 0.2);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
