@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Upload, Trash2, Image as ImageIcon } from "lucide-react";
 
 type GalleryImage = {
@@ -16,16 +16,16 @@ export default function AdminGallery() {
   const [file, setFile] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
-
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     const res = await fetch("/api/admin/gallery");
     const data = await res.json();
     setImages(data);
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Star, Quote, ChevronLeft, ChevronRight, PenLine } from "lucide-react";
 import ReviewForm from "./ReviewForm";
@@ -23,11 +23,7 @@ export default function CustomerReviews() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  useEffect(() => {
-    fetchReviews();
-  }, [isFormOpen]); // Refetch when form closes in case of immediate approval, though usually it's pending.
-
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       const res = await fetch("/api/reviews");
       const data = await res.json();
@@ -37,7 +33,11 @@ export default function CustomerReviews() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews, isFormOpen]); // Refetch when form closes in case of immediate approval, though usually it's pending.
 
   const next = () => setCurrentIndex((current) => (current === reviews.length - 1 ? 0 : current + 1));
   const prev = () => setCurrentIndex((current) => (current === 0 ? reviews.length - 1 : current - 1));
