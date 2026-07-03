@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plus, Edit, Trash2, X } from "lucide-react";
 
 type Package = {
@@ -28,16 +28,16 @@ export default function AdminPackages() {
     fuel: "Diesel", image: "", features: "", bestFor: "", badge: ""
   });
 
-  useEffect(() => {
-    fetchPackages();
-  }, []);
-
-  const fetchPackages = async () => {
+  const fetchPackages = useCallback(async () => {
     const res = await fetch("/api/admin/packages");
     const data = await res.json();
     setPackages(data);
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchPackages();
+  }, [fetchPackages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

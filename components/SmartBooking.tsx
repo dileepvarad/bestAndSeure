@@ -383,7 +383,7 @@ Please confirm availability.`;
               </motion.button>
 
               <p className="text-center text-xs text-slate-500">
-                Clicking "Book Now" opens WhatsApp with your booking details pre-filled.
+                Clicking &quot;Book Now&quot; opens WhatsApp with your booking details pre-filled.
               </p>
             </form>
           </motion.div>

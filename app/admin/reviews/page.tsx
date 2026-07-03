@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CheckCircle, XCircle, Trash2, Star } from "lucide-react";
 
 type Review = {
@@ -18,16 +18,16 @@ export default function AdminReviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
-
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     const res = await fetch("/api/admin/reviews");
     const data = await res.json();
     setReviews(data);
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   const handleToggleApproval = async (id: string, currentStatus: boolean) => {
     await fetch(`/api/admin/reviews/${id}`, {
