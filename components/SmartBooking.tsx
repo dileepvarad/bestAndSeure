@@ -121,8 +121,7 @@ export default function SmartBooking() {
     const selectedRate = vehicleRates[form.vehicle] ?? defaultVehicleRates["Swift (Hatchback)"];
     const tripMultiplier = form.tripType === "Round Trip" ? 2 : 1;
     const tripDistance = distance * tripMultiplier;
-    const minimumFareForTrip = selectedRate.minFare; // Minimum fare applies to the whole booking
-    return Math.round(Math.max(tripDistance * selectedRate.rate, minimumFareForTrip));
+    return Math.round(tripDistance * selectedRate.rate);
   }, [distance, form.tripType, form.vehicle, vehicleRates]);
 
   const updateField = (field: keyof typeof form, value: string) => {
@@ -403,15 +402,9 @@ Please confirm availability.`;
               <p className="mt-2 text-xs text-slate-500">
                 {isCustom ? "Approx. 20 km estimate" : `${distance} km · ${form.tripType}`}
               </p>
-              <div className="mt-4 flex flex-col items-center justify-center gap-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-slate-500">Vehicle rate:</span>
-                  <span className="text-[10px] font-semibold text-gold">{vehicleRates[form.vehicle]?.label}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-slate-500">Minimum trip fare:</span>
-                  <span className="text-[10px] font-semibold text-gold">₹{vehicleRates[form.vehicle]?.minFare}</span>
-                </div>
+              <div className="mt-4 flex items-center justify-center gap-2">
+                <span className="text-[10px] text-slate-500">Vehicle rate:</span>
+                <span className="text-[10px] font-semibold text-gold">{vehicleRates[form.vehicle]?.label}</span>
               </div>
               <p className="mt-3 text-[10px] text-slate-500">
                 Estimate excludes tolls, parking, and waiting charges.
