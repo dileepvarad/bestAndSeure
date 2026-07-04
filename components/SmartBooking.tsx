@@ -153,7 +153,8 @@ Please confirm availability.`;
     event.preventDefault();
     setSubmitted(true);
 
-    if (!form.pickup.trim() || !form.date || !form.time) {
+    if (!form.pickup.trim() || !form.date || !form.time || priceEstimate <= 0) {
+      alert("Please ensure all fields are filled and the fare is greater than ₹0.");
       return;
     }
 
