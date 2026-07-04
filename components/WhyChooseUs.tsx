@@ -34,13 +34,6 @@ const features = [
     statLabel: "Support",
   },
   {
-    icon: Star,
-    title: "Strong reviews",
-    desc: "A service experience that has earned repeat bookings and positive word of mouth.",
-    stat: "5.0",
-    statLabel: "Google rating",
-  },
-  {
     icon: Wallet,
     title: "Clear pricing",
     desc: "Straightforward fares with no hidden extras or vague cost surprises.",

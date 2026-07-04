@@ -40,7 +40,6 @@ const highlights = [
 
 const stats = [
   { icon: Star, value: 500, suffix: "+", label: "Trips served" },
-  { icon: BadgeCheck, value: 5, suffix: ".0", label: "Google rating" },
   { icon: Clock, value: 24, suffix: "/7", label: "Service hours" },
 ];
 

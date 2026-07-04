@@ -5,7 +5,6 @@ import { motion, useInView } from "framer-motion";
 import { Shield, Target, Eye, Award, Users, MapPin } from "lucide-react";
 
 const milestones = [
-  { icon: Award, number: "5.0", label: "Google rating" },
   { icon: Users, number: "500+", label: "Happy customers" },
   { icon: MapPin, number: "50+", label: "Routes covered" },
 ];
