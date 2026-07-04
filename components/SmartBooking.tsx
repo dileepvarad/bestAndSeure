@@ -57,9 +57,10 @@ export default function SmartBooking() {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const [vehicleRates, setVehicleRates] = useState(defaultVehicleRates);
   const [form, setForm] = useState({
-    pickup: "Muralinagar, Visakhapatnam",
+    pickup: "",
     destination: "RK Beach",
     customDestination: "",
+    customDistance: "20",
     date: "",
     time: "",
     passengers: "1",
@@ -115,7 +116,7 @@ export default function SmartBooking() {
   const vehicleTypes = Object.keys(vehicleRates);
   const destinations = Object.keys(destinationDistances);
   const isCustom = form.destination === "Custom Location";
-  const distance = isCustom ? 20 : destinationDistances[form.destination] ?? 20;
+  const distance = isCustom ? (Number(form.customDistance) || 0) : (destinationDistances[form.destination] ?? 20);
 
   const priceEstimate = useMemo(() => {
     const selectedRate = vehicleRates[form.vehicle] ?? defaultVehicleRates["Swift (Hatchback)"];
@@ -263,13 +264,23 @@ Please confirm availability.`;
                   </select>
                 </div>
                 {isCustom && (
-                  <input
-                    type="text"
-                    placeholder="Enter your destination"
-                    value={form.customDestination}
-                    onChange={(e) => updateField("customDestination", e.target.value)}
-                    className="mt-2 w-full rounded-xl border border-white/12 bg-white/8 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-slate-600 focus:border-gold"
-                  />
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Enter destination"
+                      value={form.customDestination}
+                      onChange={(e) => updateField("customDestination", e.target.value)}
+                      className="w-full rounded-xl border border-white/12 bg-white/8 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-slate-600 focus:border-gold"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Distance (km)"
+                      value={form.customDistance}
+                      onChange={(e) => updateField("customDistance", e.target.value)}
+                      className="w-full rounded-xl border border-white/12 bg-white/8 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-slate-600 focus:border-gold"
+                    />
+                  </div>
                 )}
               </div>
 
